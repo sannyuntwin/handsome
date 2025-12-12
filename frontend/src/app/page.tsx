@@ -28,6 +28,7 @@ import {
   Smartphone,
   Activity
 } from 'lucide-react';
+import Link from 'next/link';
 
 
 interface Project {
@@ -769,7 +770,7 @@ const Portfolio: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-                Saw San Nyunt Win
+                <Link href={'mfu-journey'}>Saw San Nyunt Win</Link>
               </h3>
               <p className="text-gray-400 text-sm">
                 Full-Stack Developer passionate about creating innovative web solutions
