@@ -85,13 +85,49 @@ const Portfolio: React.FC = () => {
 
   const projects: Project[] = [
     {
+      id: 8,
+      title: "Handsome Mini Chat",
+      description: "Mini chat web application using websockets for real-time communication with a sleek and responsive design.",
+      tech: ["WebSocket", "Python", "JavaScript", "HTML", "CSS"],
+      link: "https://handsome-chat.vercel.app/",
+      image: "/img/minichat.png",
+      metrics: ""
+    },
+    {
+      id: 9,
+      title: "Password Strength Analyzer",
+      description: "Python application that evaluates password strength using machine learning techniques to provide real-time feedback and suggestions.",
+      tech: ["TypeScript", "Python", "JavaScript", "Dockerfile"],
+      link: "https://handsome-checker.vercel.app/",
+      image: "/img/ps-check.png",
+      metrics: ""
+    },
+        {
+      id: 4,
+      title: "Camp Booking System ",
+      description: "Web application for booking camping sites with user authentication, availability calendar, and payment processing.",
+      tech: ["React", "TypeScript", "NextJs"],
+      link: "https://icampjp.vercel.app/",
+      image: "/img/icamp.png",
+      metrics: ""
+    },
+    {
+      id: 7,
+      title: "Simple Network Scanner",
+      description: "Educational & Ethical Cybersecurity Project Scan and visualize your own local network to understand devices, services, and basic security exposure",
+      tech: ["Python", "HTML", "CSS"],
+      link: "https://handsome-chat.vercel.app/",
+      image: "/img/net-scan.png",
+      metrics: ""
+    },
+    {
       id: 1,
       title: "ESP32 IoT Car",
       description: "A smart IoT car controlled via mobile hotspot with real-time sensor feedback and autonomous navigation features.",
       tech: ["ESP32", "Arduino", "React Native", "IoT"],
       link: "https://github.com/sannyuntwin/esp32-wifi-controll-car",
       image: "/img/iot-car.jpg",
-      metrics: "50% faster response time"
+      metrics: ""
     },
     {
       id: 2,
@@ -100,7 +136,7 @@ const Portfolio: React.FC = () => {
       tech: ["Next.js", "Node.js", "PostgreSQL", "Stripe"],
       link: "https://mfu-2ndhand.vercel.app/",
       image: "/img/2nd-mfu.png",
-      metrics: "10K+ monthly users"
+      metrics: ""
     },
     {
       id: 3,
@@ -109,16 +145,7 @@ const Portfolio: React.FC = () => {
       tech: ["Python", "OpenCV", "Machine Learning", "Computer Vision"],
       link: "https://github.com/sannyuntwin/hand-gesture-recognition-with-python-opencv",
       image: "/img/hand-gesture.png",
-      metrics: "Real-time sync < 100ms"
-    },
-    {
-      id: 4,
-      title: "Camp Booking System ",
-      description: "Web application for booking camping sites with user authentication, availability calendar, and payment processing.",
-      tech: ["React", "TypeScript", "NextJs"],
-      link: "https://icampjp.vercel.app/",
-      image: "/img/icamp.png",
-      metrics: "Real-time sync < 100ms"
+      metrics: ""
     },
     {
       id: 5,
@@ -127,7 +154,7 @@ const Portfolio: React.FC = () => {
       tech: ["MongoDb", "Express", "React", "Node.js"],
       link: "https://www.cantwait2say.com/",
       image: "/img/cantwait2say.png",
-      metrics: "Real-time sync < 100ms"
+      metrics: ""
     },
     {
       id: 6,
@@ -136,7 +163,7 @@ const Portfolio: React.FC = () => {
       tech: ["ESP32", "Arduino", "IoT", "MQTT"],
       link: "https://www.youtube.com/watch?v=aTisVD-V10I&t=61s",
       image: "/img/smart-home.jpg",
-      metrics: "Latency < 200ms"
+      metrics: ""
   },
   ];
 
@@ -375,19 +402,19 @@ const Portfolio: React.FC = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
             <div className="p-4 bg-slate-800/50 rounded-lg backdrop-blur-sm border border-purple-500/20">
-              <div className="text-3xl font-bold text-purple-400 mb-1">30+</div>
+              <div className="text-3xl font-bold text-purple-400 mb-1">5+</div>
               <div className="text-sm text-gray-400">Projects Built</div>
             </div>
             <div className="p-4 bg-slate-800/50 rounded-lg backdrop-blur-sm border border-purple-500/20">
               <div className="text-3xl font-bold text-purple-400 mb-1">3+</div>
               <div className="text-sm text-gray-400">Years Coding</div>
             </div>
-            <div className="p-4 bg-slate-800/50 rounded-lg backdrop-blur-sm border border-purple-500/20">
+            {/* <div className="p-4 bg-slate-800/50 rounded-lg backdrop-blur-sm border border-purple-500/20">
               <div className="text-3xl font-bold text-purple-400 mb-1">15+</div>
               <div className="text-sm text-gray-400">Happy Clients</div>
-            </div>
+            </div> */}
             <div className="p-4 bg-slate-800/50 rounded-lg backdrop-blur-sm border border-purple-500/20">
               <div className="text-3xl font-bold text-purple-400 mb-1">10+</div>
               <div className="text-sm text-gray-400">Technologies</div>
@@ -692,7 +719,7 @@ const Portfolio: React.FC = () => {
                     <Mail className="text-purple-400" />
                     sannyuntwin21@gmail.com
                   </a>
-                  <a href="https://github.com/handsome1123" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-300 hover:text-purple-400 transition-colors">
+                  <a href="https://github.com/sannyuntwin" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-300 hover:text-purple-400 transition-colors">
                     <Github className="text-purple-400" />
                     github.com/handsome1123
                   </a>
@@ -703,7 +730,7 @@ const Portfolio: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-lg p-6 border border-purple-500/20">
+              {/* <div className="bg-slate-800/50 backdrop-blur-sm rounded-lg p-6 border border-purple-500/20">
                 <h3 className="text-xl font-bold mb-4">Schedule a Call</h3>
                 <p className="text-gray-300 mb-4">
                   Prefer to discuss your project over a call? Book a free 30-minute consultation.
@@ -715,7 +742,7 @@ const Portfolio: React.FC = () => {
                   <Calendar size={20} />
                   Book a Call
                 </a>
-              </div>
+              </div> */}
 
               <div className="bg-slate-800/50 backdrop-blur-sm rounded-lg p-6 border border-purple-500/20">
                 <h3 className="text-xl font-bold mb-4">Response Time</h3>
@@ -728,7 +755,7 @@ const Portfolio: React.FC = () => {
 
           <div className="flex justify-center gap-6">
             <a
-              href="https://github.com/handsome1123"
+              href="https://github.com/sannyuntwin"
               target="_blank"
               rel="noopener noreferrer"
               className="w-12 h-12 flex items-center justify-center rounded-full border-2 border-purple-500/30 hover:border-purple-500 hover:bg-purple-600/20 transition-all transform hover:scale-110"
@@ -792,7 +819,7 @@ const Portfolio: React.FC = () => {
             <div>
               <h4 className="font-semibold mb-4">Connect</h4>
               <div className="flex justify-center gap-4">
-                <a href="https://github.com/handsome1123" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400">
+                <a href="https://github.com/sannyuntwin" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400">
                   <Github size={24} />
                 </a>
                 <a href="https://www.linkedin.com/in/saw-san-nyunt-win-b06a1a227/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400">
