@@ -1,1 +1,160 @@
 @import "tailwindcss";
+
+:root {
+	--ink: #f5f0ff;
+	--muted: #a7a1bc;
+	--accent: #b9f6ff;
+	--accent-strong: #9b7cff;
+	--surface: rgba(20, 12, 47, 0.78);
+}
+
+* {
+	scroll-behavior: smooth;
+}
+
+body {
+	background: #080414;
+	color: var(--ink);
+	font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+}
+
+::selection {
+	background: var(--accent);
+	color: #120927;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+}
+
+.portfolio-shell {
+	background:
+		radial-gradient(circle at 15% 12%, rgba(126, 81, 255, 0.2), transparent 25rem),
+		radial-gradient(circle at 85% 40%, rgba(21, 183, 214, 0.12), transparent 28rem),
+		#080414;
+}
+
+.portfolio-grid {
+	background-image: radial-gradient(rgba(185, 246, 255, 0.5) 1px, transparent 1px);
+	background-size: 76px 76px;
+	background-position: 12px 18px;
+}
+
+.portfolio-accent {
+	color: var(--accent);
+}
+
+.bg-lime-300 {
+	background-color: var(--accent) !important;
+}
+
+.text-lime-200,
+.text-lime-300 {
+	color: var(--accent) !important;
+}
+
+.border-lime-300 {
+	border-color: rgba(185, 246, 255, 0.45) !important;
+}
+
+.portfolio-surface {
+	background: var(--surface);
+	border-color: rgba(185, 246, 255, 0.2);
+}
+
+.language-flag {
+	display: inline-block;
+	width: 1.6rem;
+	height: 1.05rem;
+	border-radius: 0.15rem;
+	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+	vertical-align: middle;
+}
+
+.language-flag-th {
+	background: url("/flags/th.svg") center / cover no-repeat;
+}
+
+.language-flag-gb {
+	background: url("/flags/gb.svg") center / cover no-repeat;
+}
+
+.space-glow {
+	box-shadow: 0 0 80px rgba(155, 124, 255, 0.18), inset 0 0 40px rgba(185, 246, 255, 0.04);
+}
+
+.space-orbit {
+	animation: space-drift 7s ease-in-out infinite alternate;
+}
+
+.portfolio-shell h1,
+.portfolio-shell h2,
+.portfolio-shell h3,
+.portfolio-shell p,
+.portfolio-shell button,
+.portfolio-shell a,
+.portfolio-shell span {
+	transition: color 220ms ease, text-shadow 220ms ease, transform 220ms ease, opacity 220ms ease;
+}
+
+.portfolio-shell h1,
+.portfolio-shell h2 {
+	animation: text-breathe 6s ease-in-out infinite;
+}
+
+.portfolio-shell h3,
+.portfolio-shell p {
+	animation: text-settle 7s ease-in-out infinite;
+}
+
+.portfolio-shell h1:hover,
+.portfolio-shell h2:hover,
+.portfolio-shell h3:hover,
+.portfolio-shell p:hover {
+	color: var(--accent);
+	text-shadow: 0 0 22px rgba(185, 246, 255, 0.28);
+}
+
+.portfolio-shell button:hover,
+.portfolio-shell a:hover {
+	text-shadow: 0 0 16px rgba(185, 246, 255, 0.3);
+}
+
+.portfolio-shell img {
+	transition: transform 700ms ease, filter 700ms ease;
+}
+
+.portfolio-shell img:hover {
+	filter: saturate(1.15) brightness(1.08);
+	transform: scale(1.03);
+}
+
+@keyframes text-breathe {
+	0%, 100% { text-shadow: 0 0 0 rgba(185, 246, 255, 0); }
+	50% { text-shadow: 0 0 18px rgba(185, 246, 255, 0.12); }
+}
+
+@keyframes text-settle {
+	0%, 100% { opacity: 0.9; }
+	50% { opacity: 1; }
+}
+
+@keyframes space-drift {
+	from { transform: translate3d(0, 0, 0); opacity: 0.35; }
+	to { transform: translate3d(18px, -12px, 0); opacity: 0.9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
+	}
+}
