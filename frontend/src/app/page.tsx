@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import SpacekitScene from "./components/SpacekitScene";
 import PortraitCube from "./components/PortraitCube";
+import AntigravityField from "./components/AntigravityField";
 
 interface Project {
   id: number;
@@ -383,6 +384,7 @@ export default function Portfolio() {
   return (
     <main className="portfolio-shell portfolio-grid min-h-screen overflow-hidden">
       <SpacekitScene language={language} background />
+      <AntigravityField />
       <nav className="fixed top-0 z-40 w-full border-b border-cyan-100/10 bg-[#080414]/80 backdrop-blur-xl">
         <div className="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between px-5 lg:px-8">
           <button
