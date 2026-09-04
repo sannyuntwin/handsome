@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import Globe from "react-globe.gl";
+import { useEffect, useRef, useState } from "react";
+import Globe, { type GlobeMethods } from "react-globe.gl";
 
 interface LocationPoint {
   name: string;
@@ -19,13 +19,25 @@ const locations: LocationPoint[] = [
 ];
 
 export default function WorldGlobe({ language = "en" }: { language?: "en" | "th" }) {
+  const globeRef = useRef<GlobeMethods>();
   const [selectedLocation, setSelectedLocation] = useState<LocationPoint>(locations[0]);
   const isThai = language === "th";
+
+  useEffect(() => {
+    const controls = globeRef.current?.controls();
+    if (!controls) return;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.35;
+    return () => {
+      controls.autoRotate = false;
+    };
+  }, []);
 
   return (
     <div className="space-glow relative min-h-[680px] overflow-hidden rounded-2xl border border-cyan-200/20 bg-[#080414]/70">
       <div className="absolute inset-0 flex items-center justify-center opacity-90">
         <Globe
+          ref={globeRef}
           width={760}
           height={760}
           backgroundColor="rgba(0,0,0,0)"

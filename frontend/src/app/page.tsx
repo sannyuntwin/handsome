@@ -7,7 +7,6 @@ import {
   ArrowUpRight,
   Contact,
   FolderKanban,
-  Gamepad2,
   Github,
   Linkedin,
   Mail,
@@ -17,7 +16,8 @@ import {
   Wrench,
   X,
 } from "lucide-react";
-import SpaceGame from "./components/SpaceGame";
+import SpacekitScene from "./components/SpacekitScene";
+import PortraitCube from "./components/PortraitCube";
 
 interface Project {
   id: number;
@@ -189,11 +189,10 @@ const translations = {
     skills: "Skills",
     projects: "Projects",
     focus: "Focus",
-    play: "Play",
     contact: "Contact",
     resume: "Resume",
-    playMission: "Play mission",
     downloadResume: "Download resume",
+    welcome: "Hi, Welcome to Handsome World!",
     label: "LIFE IN SPACE / SOFTWARE & SYSTEMS",
     heroTitle: "Useful things,",
     heroTitleLine: "carefully built.",
@@ -253,11 +252,10 @@ const translations = {
     skills: "ทักษะ",
     projects: "ผลงาน",
     focus: "ความสนใจ",
-    play: "เล่นเกม",
     contact: "ติดต่อ",
     resume: "เรซูเม่",
-    playMission: "เล่นภารกิจ",
     downloadResume: "ดาวน์โหลดเรซูเม่",
+    welcome: "สวัสดี ยินดีต้อนรับสู่โลกของ Handsome!",
     label: "LIFE IN SPACE / ซอฟต์แวร์และระบบ",
     heroTitle: "สร้างสิ่งที่มีประโยชน์",
     heroTitleLine: "อย่างตั้งใจ",
@@ -338,7 +336,6 @@ export default function Portfolio() {
       "skills",
       "projects",
       "experience",
-      "game",
       "contact",
     ]
       .map((id) => document.getElementById(id))
@@ -385,6 +382,7 @@ export default function Portfolio() {
 
   return (
     <main className="portfolio-shell portfolio-grid min-h-screen overflow-hidden">
+      <SpacekitScene language={language} background />
       <nav className="fixed top-0 z-40 w-full border-b border-cyan-100/10 bg-[#080414]/80 backdrop-blur-xl">
         <div className="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between px-5 lg:px-8">
           <button
@@ -392,11 +390,11 @@ export default function Portfolio() {
             className="group flex items-center gap-3 text-left"
           >
             <span className="flex h-9 w-9 items-center justify-center rounded-full border border-cyan-200/40 text-sm font-bold text-cyan-100 transition-colors group-hover:bg-cyan-100 group-hover:text-[#120927]">
-              SS
+              HI
             </span>
             <span>
               <span className="block text-sm font-bold tracking-[0.16em] text-white">
-                SAW SAN<span className="portfolio-accent">.</span>
+                HANDSOME<span className="portfolio-accent">.</span>
               </span>
               <span className="block text-[0.62rem] uppercase tracking-[0.18em] text-gray-500">
                 {t.software}
@@ -420,13 +418,6 @@ export default function Portfolio() {
                       : t.focus}
               </button>
             ))}
-            <button
-              onClick={() => goTo("game")}
-              className={`flex items-center gap-1.5 rounded-full px-3 py-2 text-xs transition-colors ${activeSection === "game" ? "bg-violet-400/20 text-cyan-100" : "text-violet-200 hover:text-white"}`}
-            >
-              <Gamepad2 size={14} />
-              {t.play}
-            </button>
           </div>
           <div className="hidden items-center gap-3 md:flex">
             <button
@@ -472,16 +463,9 @@ export default function Portfolio() {
                     ? t.skills
                     : id === "projects"
                       ? t.projects
-                      : t.focus}
+                        : t.focus}
               </button>
             ))}
-            <button
-              onClick={() => goTo("game")}
-              className={`flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm ${activeSection === "game" ? "bg-violet-400/20 text-cyan-100" : "text-gray-300"}`}
-            >
-              <Gamepad2 size={17} />
-              {t.playMission}
-            </button>
             <button
               onClick={() => goTo("contact")}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm text-gray-300"
@@ -515,6 +499,9 @@ export default function Portfolio() {
         </div>
         <div className="relative z-10 mx-auto grid w-full max-w-6xl gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
           <div>
+            <p className="welcome-banner writing-text mb-6 text-xl font-bold tracking-[0.08em] text-cyan-100 sm:text-2xl md:text-3xl">
+              {t.welcome}
+            </p>
             <p className="mb-6 text-sm font-semibold uppercase tracking-[0.3em] portfolio-accent">
               {t.label}
             </p>
@@ -542,14 +529,11 @@ export default function Portfolio() {
             </div>
           </div>
           <div className="lg:mb-3">
-            <div className="relative mb-8 aspect-[4/5] max-w-xs overflow-hidden rounded-2xl border border-lime-300/20">
-              <Image
-                src="/img/IMG_2432.JPG"
-                alt="Saw San Nyunt Win"
-                fill
-                sizes="320px"
-                className="object-cover"
-              />
+            <div className="relative mb-8 max-w-xs">
+              <PortraitCube />
+              <span className="portrait-tag absolute bottom-4 left-4 z-10 border border-cyan-100/30 bg-[#03030a]/80 px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-cyan-100 backdrop-blur-sm">
+                Bangkok / TH
+              </span>
             </div>
             <div className="border-l border-lime-300/40 pl-6">
               <p className="text-sm uppercase tracking-widest text-gray-500">
@@ -712,12 +696,6 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section id="game" className="px-5 py-24 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <SpaceGame language={language} />
-        </div>
-      </section>
-
       <section id="projects" className="px-5 py-24 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <div className="mb-10 flex flex-col justify-between gap-6 border-b border-white/10 pb-6 md:flex-row md:items-end">
@@ -800,6 +778,7 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+
       <section
         id="experience"
         className="border-y border-white/10 bg-black/10 px-5 py-24 lg:px-8"

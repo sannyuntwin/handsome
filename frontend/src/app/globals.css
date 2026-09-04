@@ -13,7 +13,7 @@
 }
 
 body {
-	background: #080414;
+	background: #03030a;
 	color: var(--ink);
 	font-family: "Avenir Next", "Trebuchet MS", sans-serif;
 }
@@ -33,16 +33,11 @@ textarea:focus-visible {
 }
 
 .portfolio-shell {
-	background:
-		radial-gradient(circle at 15% 12%, rgba(126, 81, 255, 0.2), transparent 25rem),
-		radial-gradient(circle at 85% 40%, rgba(21, 183, 214, 0.12), transparent 28rem),
-		#080414;
+	background: transparent;
 }
 
 .portfolio-grid {
-	background-image: radial-gradient(rgba(185, 246, 255, 0.5) 1px, transparent 1px);
-	background-size: 76px 76px;
-	background-position: 12px 18px;
+	background-image: none;
 }
 
 .portfolio-accent {
@@ -88,8 +83,113 @@ textarea:focus-visible {
 	box-shadow: 0 0 80px rgba(155, 124, 255, 0.18), inset 0 0 40px rgba(185, 246, 255, 0.04);
 }
 
+.spacekit-background {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	overflow: hidden;
+	background: #03030a;
+	opacity: 0.86;
+}
+
+.spacekit-background-canvas {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+.portfolio-shell > nav,
+.portfolio-shell > section,
+.portfolio-shell > div:not(.spacekit-background) {
+	position: relative;
+	z-index: 1;
+}
+
 .space-orbit {
 	animation: space-drift 7s ease-in-out infinite alternate;
+}
+
+.portrait-cube-scene {
+	width: min(20rem, 76vw);
+	height: min(20rem, 76vw);
+	perspective: 1100px;
+}
+
+.portrait-cube {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	transform-style: preserve-3d;
+	animation: cube-spin 18s linear infinite;
+}
+
+.portrait-cube-face {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	border: 1px solid rgba(185, 246, 255, 0.55);
+	background: #03030a;
+	backface-visibility: hidden;
+	box-shadow: inset 0 0 24px rgba(185, 246, 255, 0.12), 0 0 20px rgba(155, 124, 255, 0.18);
+}
+
+.portrait-cube-face-0 { transform: rotateY(0deg) translateZ(calc(min(20rem, 76vw) / 2)); }
+.portrait-cube-face-1 { transform: rotateY(90deg) translateZ(calc(min(20rem, 76vw) / 2)); }
+.portrait-cube-face-2 { transform: rotateY(180deg) translateZ(calc(min(20rem, 76vw) / 2)); }
+.portrait-cube-face-3 { transform: rotateY(270deg) translateZ(calc(min(20rem, 76vw) / 2)); }
+
+.portrait-tag {
+	box-shadow: 0 0 18px rgba(185, 246, 255, 0.18);
+}
+
+.welcome-banner {
+	position: relative;
+	width: fit-content;
+	max-width: 100%;
+	padding: 0.65rem 1rem 0.65rem 1.15rem;
+	border-left: 0.28rem solid var(--accent);
+	border-radius: 0 0.7rem 0.7rem 0;
+	animation: welcome-arrive 900ms cubic-bezier(0.2, 0.8, 0.2, 1) both, welcome-pulse 3.2s ease-in-out 900ms infinite;
+	background: rgba(3, 3, 10, 0.76);
+	box-shadow: 0 0 28px rgba(185, 246, 255, 0.2), inset 0 0 18px rgba(185, 246, 255, 0.06);
+	color: #ffffff;
+	text-shadow: 0 0 8px rgba(185, 246, 255, 0.95), 2px 2px 0 rgba(82, 45, 160, 0.9), 0 0 24px rgba(185, 246, 255, 0.6);
+}
+
+.portfolio-shell .welcome-banner {
+	animation: welcome-arrive 900ms cubic-bezier(0.2, 0.8, 0.2, 1) both, welcome-pulse 3.2s ease-in-out 900ms infinite;
+}
+
+.writing-text {
+	overflow: hidden;
+	white-space: nowrap;
+	clip-path: inset(0 100% 0 0);
+}
+
+.portfolio-shell .writing-text {
+	animation: welcome-arrive 900ms cubic-bezier(0.2, 0.8, 0.2, 1) both, text-write 2.4s steps(34, end) 700ms forwards, welcome-pulse 3.2s ease-in-out 3.2s infinite;
+}
+
+.writing-text::before {
+	position: absolute;
+	inset: 0;
+	border-right: 2px solid var(--accent);
+	content: "";
+	animation: typing-caret 800ms steps(1, end) infinite;
+}
+
+.welcome-banner::after {
+	position: absolute;
+	bottom: -0.65rem;
+	left: 0;
+	width: 4.5rem;
+	height: 0.18rem;
+	content: "";
+	border-radius: 999px;
+	background: var(--accent);
+	box-shadow: 0 0 18px rgba(185, 246, 255, 0.85), 1.2rem 0 0 rgba(155, 124, 255, 0.72);
+	animation: welcome-line 2.4s ease-in-out 900ms infinite alternate;
 }
 
 .portfolio-shell h1,
@@ -98,8 +198,25 @@ textarea:focus-visible {
 .portfolio-shell p,
 .portfolio-shell button,
 .portfolio-shell a,
-.portfolio-shell span {
+.portfolio-shell span,
+.portfolio-shell label,
+.portfolio-shell output {
 	transition: color 220ms ease, text-shadow 220ms ease, transform 220ms ease, opacity 220ms ease;
+}
+
+.portfolio-shell h1,
+.portfolio-shell h2,
+.portfolio-shell h3,
+.portfolio-shell p,
+.portfolio-shell button,
+.portfolio-shell a,
+.portfolio-shell span,
+.portfolio-shell label,
+.portfolio-shell output {
+	text-shadow:
+		1px 1px 0 rgba(8, 4, 20, 0.85),
+		2px 2px 0 rgba(155, 124, 255, 0.28),
+		3px 3px 8px rgba(0, 0, 0, 0.42);
 }
 
 .portfolio-shell h1,
@@ -117,7 +234,10 @@ textarea:focus-visible {
 .portfolio-shell h3:hover,
 .portfolio-shell p:hover {
 	color: var(--accent);
-	text-shadow: 0 0 22px rgba(185, 246, 255, 0.28);
+	text-shadow:
+		1px 1px 0 rgba(8, 4, 20, 0.85),
+		3px 3px 0 rgba(155, 124, 255, 0.4),
+		0 0 22px rgba(185, 246, 255, 0.28);
 }
 
 .portfolio-shell button:hover,
@@ -135,8 +255,18 @@ textarea:focus-visible {
 }
 
 @keyframes text-breathe {
-	0%, 100% { text-shadow: 0 0 0 rgba(185, 246, 255, 0); }
-	50% { text-shadow: 0 0 18px rgba(185, 246, 255, 0.12); }
+	0%, 100% {
+		text-shadow:
+			1px 1px 0 rgba(8, 4, 20, 0.85),
+			2px 2px 0 rgba(155, 124, 255, 0.28),
+			3px 3px 8px rgba(0, 0, 0, 0.42);
+	}
+	50% {
+		text-shadow:
+			1px 1px 0 rgba(8, 4, 20, 0.85),
+			2px 2px 0 rgba(155, 124, 255, 0.34),
+			0 0 18px rgba(185, 246, 255, 0.12);
+	}
 }
 
 @keyframes text-settle {
@@ -149,6 +279,36 @@ textarea:focus-visible {
 	to { transform: translate3d(18px, -12px, 0); opacity: 0.9; }
 }
 
+@keyframes cube-spin {
+	from { transform: rotateY(0deg) rotateX(-4deg); }
+	to { transform: rotateY(360deg) rotateX(-4deg); }
+}
+
+@keyframes welcome-arrive {
+	from { opacity: 0; transform: translate3d(0, 1rem, 0) scale(0.96); }
+	to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes welcome-pulse {
+	0%, 100% { filter: drop-shadow(0 0 0 rgba(185, 246, 255, 0)); background-position: 0% 50%; }
+	50% { filter: drop-shadow(0 0 16px rgba(185, 246, 255, 0.42)); background-position: 100% 50%; }
+}
+
+@keyframes welcome-line {
+	from { transform: scaleX(0.7); transform-origin: left; opacity: 0.55; }
+	to { transform: scaleX(1.15); transform-origin: left; opacity: 1; }
+}
+
+@keyframes text-write {
+	from { clip-path: inset(0 100% 0 0); }
+	to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes typing-caret {
+	0%, 45% { opacity: 1; }
+	46%, 100% { opacity: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
 	*,
 	*::before,
@@ -156,5 +316,19 @@ textarea:focus-visible {
 		scroll-behavior: auto !important;
 		animation-duration: 0.01ms !important;
 		transition-duration: 0.01ms !important;
+	}
+
+	.welcome-banner,
+	.welcome-banner::after,
+	.writing-text::before {
+		animation: none !important;
+	}
+
+	.writing-text {
+		clip-path: none;
+	}
+
+	.portrait-cube {
+		animation: none !important;
 	}
 }
