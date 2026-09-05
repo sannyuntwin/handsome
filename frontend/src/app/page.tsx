@@ -19,6 +19,7 @@ import {
 import SpacekitScene from "./components/SpacekitScene";
 import PortraitCube from "./components/PortraitCube";
 import AntigravityField from "./components/AntigravityField";
+import RocketScene from "./components/RocketScene";
 
 interface Project {
   id: number;
@@ -198,7 +199,7 @@ const translations = {
     heroTitle: "Useful things,",
     heroTitleLine: "carefully built.",
     heroCopy:
-      "I'm Saw San Nyunt Win, a developer from Chiang Rai building useful software, connected devices, and applied AI experiments.",
+      "I'm Saw San Nyunt Win, a developer from Bangkok building useful software, connected devices, and applied AI experiments.",
     explore: "See my work",
     talk: "Let's talk",
     mission: "Current mission",
@@ -218,7 +219,7 @@ const translations = {
       "From first sketch to deployed product, I like understanding how every part fits together.",
     aboutCopy:
       "I enjoy turning unclear problems into clear, useful experiences. My work moves between frontend interfaces, backend systems, and hardware prototypes.",
-    location: "Based in Mae Chan, Chiang Rai, Thailand.",
+    location: "Based in Bangkok, Thailand.",
     aboutEnd:
       "Focused on thoughtful products, honest engineering, and learning by making.",
     skillsLabel: "02 / Skills",
@@ -261,7 +262,7 @@ const translations = {
     heroTitle: "สร้างสิ่งที่มีประโยชน์",
     heroTitleLine: "อย่างตั้งใจ",
     heroCopy:
-      "ผม Saw San Nyunt Win นักพัฒนาจากเชียงราย ผู้สร้างซอฟต์แวร์ อุปกรณ์เชื่อมต่อ และโปรเจกต์ AI ที่ใช้งานได้จริง",
+      "ผม Saw San Nyunt Win นักพัฒนาจากกรุงเทพฯ ผู้สร้างซอฟต์แวร์ อุปกรณ์เชื่อมต่อ และโปรเจกต์ AI ที่ใช้งานได้จริง",
     explore: "ดูผลงาน",
     talk: "พูดคุยกัน",
     mission: "ภารกิจปัจจุบัน",
@@ -281,7 +282,7 @@ const translations = {
       "ตั้งแต่แนวคิดแรกจนถึงการนำไปใช้งาน ผมชอบทำความเข้าใจว่าทุกส่วนทำงานร่วมกันอย่างไร",
     aboutCopy:
       "ผมสนุกกับการเปลี่ยนปัญหาที่ไม่ชัดเจนให้เป็นประสบการณ์ที่เข้าใจง่ายและมีประโยชน์ โดยทำงานทั้งอินเทอร์เฟซ ระบบหลังบ้าน และฮาร์ดแวร์ต้นแบบ",
-    location: "อยู่ที่แม่จัน เชียงราย ประเทศไทย",
+    location: "อยู่ที่กรุงเทพฯ ประเทศไทย",
     aboutEnd:
       "ตั้งใจสร้างผลงานที่ดี เรียนรู้อย่างต่อเนื่อง และเขียนโค้ดอย่างรับผิดชอบ",
     skillsLabel: "02 / ทักษะ",
@@ -319,6 +320,7 @@ export default function Portfolio() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [language, setLanguage] = useState<keyof typeof translations>("en");
   const [activeSection, setActiveSection] = useState("home");
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const [filter, setFilter] = useState<(typeof filters)[number]>("All");
   const [spotlightCategory, setSpotlightCategory] =
     useState<(typeof spotlightFilters)[number]>("Web");
@@ -329,6 +331,13 @@ export default function Portfolio() {
     message: "",
   });
   const t = translations[language];
+
+  useEffect(() => {
+    const handleScroll = () => setShowBackToTop(window.scrollY > window.innerHeight * 0.7);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const sections = [
@@ -530,7 +539,8 @@ export default function Portfolio() {
               </button>
             </div>
           </div>
-          <div className="lg:mb-3">
+          <div className="relative lg:mb-3">
+            <RocketScene />
             <div className="relative mb-8 max-w-xs">
               <PortraitCube />
               <span className="portrait-tag absolute bottom-4 left-4 z-10 border border-cyan-100/30 bg-[#03030a]/80 px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-cyan-100 backdrop-blur-sm">
@@ -909,6 +919,18 @@ export default function Portfolio() {
           <span>{t.builtWith}</span>
         </div>
       </footer>
+
+      {showBackToTop && (
+        <button
+          type="button"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Back to top"
+          title="Back to top"
+          className="fixed bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-cyan-200/50 bg-[#03030a]/80 text-cyan-100 shadow-[0_0_22px_rgba(185,246,255,0.25)] backdrop-blur-md transition-transform hover:-translate-y-1 hover:bg-cyan-100 hover:text-slate-950"
+        >
+          <ArrowUpRight className="-rotate-45" size={19} />
+        </button>
+      )}
 
       {selectedProject && (
         <div

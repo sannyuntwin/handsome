@@ -1,21 +1,38 @@
 "use client";
 
-import Image from "next/image";
-
-const cubeImages = [
-  { src: "/img/IMG_2432.JPG", alt: "Saw San Nyunt Win portrait" },
-  { src: "/img/embedded.jpg", alt: "Saw San Nyunt Win transparent portrait" },
-  { src: "/img/data-scientist.jpg", alt: "Illustrated portrait of Saw San Nyunt Win" },
-  { src: "/img/software.jpg", alt: "Saw San Nyunt Win portrait" },
+const cubeFaces = [
+  { className: "portrait-cube-face-front", src: "/img/leader.JPG" },
+  { className: "portrait-cube-face-right", src: "/img/embedded.jpg" },
+  { className: "portrait-cube-face-back", src: "/img/data-scientist.jpg" },
+  { className: "portrait-cube-face-left", src: "/img/software.jpg" },
+  { className: "portrait-cube-face-top", src: "/img/handsome.png" },
+  { className: "portrait-cube-face-bottom", src: "/img/cartoon-character.png" },
 ];
+
+const tiles = Array.from({ length: 9 }, (_, index) => ({
+  x: index % 3,
+  y: Math.floor(index / 3),
+}));
 
 export default function PortraitCube() {
   return (
-    <div className="portrait-cube-scene" aria-label="Rotating portrait gallery">
+    <div className="portrait-cube-scene" aria-label="Rotating 3D portrait cube">
       <div className="portrait-cube">
-        {cubeImages.map((image, index) => (
-          <div key={`${image.src}-${index}`} className={`portrait-cube-face portrait-cube-face-${index}`}>
-            <Image src={image.src} alt={image.alt} fill sizes="320px" className="object-cover" />
+        {cubeFaces.map((face) => (
+          <div
+            key={face.className}
+            className={`portrait-cube-face ${face.className}`}
+          >
+            {tiles.map((tile) => (
+              <span
+                key={`${face.className}-${tile.x}-${tile.y}`}
+                className="portrait-cube-tile"
+                style={{
+                  backgroundImage: `url(${face.src})`,
+                  backgroundPosition: `${tile.x * 50}% ${tile.y * 50}%`,
+                }}
+              />
+            ))}
           </div>
         ))}
       </div>
