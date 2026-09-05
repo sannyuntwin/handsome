@@ -1,7 +1,7 @@
 "use client";
 
 const cubeFaces = [
-  { className: "portrait-cube-face-front", src: "/img/leader.JPG" },
+  { className: "portrait-cube-face-front", src: "/img/leader.jpg" },
   { className: "portrait-cube-face-right", src: "/img/embedded.jpg" },
   { className: "portrait-cube-face-back", src: "/img/data-scientist.jpg" },
   { className: "portrait-cube-face-left", src: "/img/software.jpg" },
