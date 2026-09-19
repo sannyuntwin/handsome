@@ -18,8 +18,8 @@ import {
 } from "lucide-react";
 import SpacekitScene from "./components/SpacekitScene";
 import PortraitCube from "./components/PortraitCube";
-import AntigravityField from "./components/AntigravityField";
-import RocketScene from "./components/RocketScene";
+
+
 
 interface Project {
   id: number;
@@ -30,6 +30,9 @@ interface Project {
   link: string;
   image: string;
 }
+
+const AntigravityField = dynamic(() => import("./components/AntigravityField"), { ssr: false });
+const RocketScene = dynamic(() => import("./components/RocketScene"), { ssr: false });
 
 const WorldGlobe = dynamic(() => import("./components/WorldGlobe"), {
   ssr: false,

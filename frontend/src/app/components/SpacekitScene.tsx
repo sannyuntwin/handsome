@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { Orbit, Sparkles } from "lucide-react";
 import type { Simulation } from "spacekit.js";
 
+// Start downloading the library as soon as this chunk loads, not after hydration.
+const spacekitModule = typeof window !== "undefined" ? import("spacekit.js") : null;
+
 export default function SpacekitScene({ language = "en", background = false }: { language?: "en" | "th"; background?: boolean }) {
   const sceneRef = useRef<HTMLDivElement>(null);
   const simulationRef = useRef<Simulation | null>(null);
@@ -17,19 +20,21 @@ export default function SpacekitScene({ language = "en", background = false }: {
     let simulation: Simulation | undefined;
     const sceneElement = sceneRef.current;
 
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const createScene = async () => {
       if (!sceneElement) return;
 
       try {
-        const Spacekit = await import("spacekit.js");
+        const Spacekit = await (spacekitModule ?? import("spacekit.js"));
         if (cancelled) return;
 
         simulation = new Spacekit.Simulation(sceneElement as unknown as HTMLCanvasElement, {
-          basePath: "https://typpo.github.io/spacekit/src",
-          jdPerSecond: 8,
+          basePath: "/spacekit",
+          jdPerSecond: reduceMotion ? 0 : 8,
           camera: {
             initialPosition: [0, -12, 6],
-            enableDrift: true,
+            enableDrift: !reduceMotion,
           },
           debug: {
             showAxes: false,
@@ -88,7 +93,7 @@ export default function SpacekitScene({ language = "en", background = false }: {
   };
 
   return (
-    <div className={background ? "spacekit-background" : "spacekit-panel overflow-hidden rounded-2xl border border-cyan-200/20 bg-[#080414]/80"}>
+    <div className={background ? `spacekit-background ${sceneState === "ready" ? "is-ready" : ""}` : "spacekit-panel overflow-hidden rounded-2xl border border-cyan-200/20 bg-[#080414]/80"}>
       <div className={background ? "spacekit-background-canvas" : "grid gap-0 lg:grid-cols-[0.7fr_1.3fr]"}>
         {!background && <div className="flex flex-col justify-between border-b border-white/10 p-6 md:p-10 lg:border-b-0 lg:border-r">
           <div>

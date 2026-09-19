@@ -21,3 +21,5 @@
 *.ts
 !*.d.ts
 next.config.ts
+
+*.tsbuildinfo

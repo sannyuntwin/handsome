@@ -10,6 +10,7 @@ export default function RocketScene() {
     const mount = mountRef.current;
     if (!mount) return;
 
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
     camera.position.set(0, 0.2, 6.5);
@@ -184,7 +185,7 @@ export default function RocketScene() {
     };
 
     const animate = (now: number) => {
-      const elapsed = (now - startedAt) * 0.001;
+      const elapsed = reduceMotion ? 0 : (now - startedAt) * 0.001;
       rocket.position.y = Math.sin(elapsed * 1.6) * 0.14;
       if (!drag.active) {
         rocket.rotation.y += (pointer.x * 0.22 - rocket.rotation.y) * 0.035;
@@ -194,11 +195,22 @@ export default function RocketScene() {
       flame.scale.x = 0.92 + Math.sin(elapsed * 11) * 0.08;
       innerFlame.scale.y = 0.8 + Math.sin(elapsed * 18) * 0.16;
       renderer.render(scene, camera);
-      frame = window.requestAnimationFrame(animate);
+      frame = visible && !document.hidden ? window.requestAnimationFrame(animate) : 0;
     };
 
     const observer = new ResizeObserver(resize);
     observer.observe(mount);
+    // Pause rendering while the rocket is off-screen or the tab is hidden.
+    let visible = true;
+    const resumeIfNeeded = () => {
+      if (visible && !document.hidden && !frame) frame = window.requestAnimationFrame(animate);
+    };
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      resumeIfNeeded();
+    });
+    visibilityObserver.observe(mount);
+    document.addEventListener("visibilitychange", resumeIfNeeded);
     window.addEventListener("pointermove", move, { passive: true });
     mount.addEventListener("pointerdown", startDrag);
     mount.addEventListener("pointermove", dragRocket);
@@ -209,6 +221,8 @@ export default function RocketScene() {
 
     return () => {
       observer.disconnect();
+      visibilityObserver.disconnect();
+      document.removeEventListener("visibilitychange", resumeIfNeeded);
       window.removeEventListener("pointermove", move);
       mount.removeEventListener("pointerdown", startDrag);
       mount.removeEventListener("pointermove", dragRocket);

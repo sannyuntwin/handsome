@@ -7,6 +7,7 @@ const bangkok = { name: "Bangkok", country: "Thailand", lat: 13.7563, lng: 100.5
 
 export default function WorldGlobe({ language = "en" }: { language?: "en" | "th" }) {
   const globeRef = useRef<GlobeMethods>();
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [globeSize, setGlobeSize] = useState(760);
   const isThai = language === "th";
 
@@ -15,6 +16,18 @@ export default function WorldGlobe({ language = "en" }: { language?: "en" | "th"
     resizeGlobe();
     window.addEventListener("resize", resizeGlobe);
     return () => window.removeEventListener("resize", resizeGlobe);
+  }, []);
+
+  // Stop rendering the globe while it is scrolled out of view.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) globeRef.current?.resumeAnimation();
+      else globeRef.current?.pauseAnimation();
+    });
+    observer.observe(section);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -28,15 +41,15 @@ export default function WorldGlobe({ language = "en" }: { language?: "en" | "th"
   }, []);
 
   return (
-    <div className="globe-section space-glow relative min-h-[680px] overflow-hidden rounded-2xl border border-cyan-200/20 bg-[#080414]/70">
+    <div ref={sectionRef} className="globe-section space-glow relative min-h-[680px] overflow-hidden rounded-2xl border border-cyan-200/20 bg-[#080414]/70">
       <div className="absolute inset-0 flex items-center justify-center opacity-90">
         <Globe
           ref={globeRef}
           width={globeSize}
           height={globeSize}
           backgroundColor="rgba(0,0,0,0)"
-          globeImageUrl="https://unpkg.com/three-globe/example/img/earth-night.jpg"
-          bumpImageUrl="https://unpkg.com/three-globe/example/img/earth-topology.png"
+          globeImageUrl="/globe/earth-night.jpg"
+          bumpImageUrl="/globe/earth-topology.png"
           showAtmosphere
           atmosphereColor="#b9f6ff"
           atmosphereAltitude={0.16}

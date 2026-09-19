@@ -13,6 +13,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preload" as="image" href="/spacekit/skybox-preview.jpg" />
+        <link rel="preload" as="image" href="/spacekit/assets/skybox/nasa_tycho.jpg" />
+      </head>
       <body className="antialiased">
         {children}
       </body>
